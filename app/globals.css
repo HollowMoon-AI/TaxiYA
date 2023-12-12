@@ -4,6 +4,20 @@
  
 @layer base {
   :root {
+    --background-color: #ffffff; /* Replace with actual color value if needed */
+    --foreground-color: #041e42; /* Replace with actual color value if needed */
+
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    --border-width: 1px;
+    --border-style: solid;
+    --border-radius: 0.5rem;
+
+    --font-family: "Helvetica Neue", Arial, sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -35,7 +49,9 @@
     --radius: 0.5rem;
   }
  
-  .dark {
+.dark {
+    --background-color: #041e42;
+    --foreground-color: #ffffff;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
  
@@ -70,7 +86,14 @@
   * {
     @apply border-border;
   }
-  body {
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    margin: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
     @apply bg-background text-foreground;
   }
 }
