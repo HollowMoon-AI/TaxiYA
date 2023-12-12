@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const BASE_URL = "https://api.mapbox.com/search/searchbox/v1/suggest";
+const BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 export async function GET(request: any) {
   const { searchParams } = new URL(request.url);
@@ -15,10 +15,11 @@ export async function GET(request: any) {
   }
 
   const res = await fetch(
-    `${BASE_URL}?q=${searchText}&language=en&limit=6&country=US&session_token=[GENERATED-UUID]`,
+    `${BASE_URL}/${encodeURIComponent(searchText)}.json?access_token=${process.env.MAPBOX_ACCESS_TOKEN}&limit=6&country=US&language=en`,
     {
       headers: {
         "Content-Type": "application/json",
+"Authorization": `Bearer ${process.env.MAPBOX_ACCESS_TOKEN}`
       },
     }
   );
