@@ -1,0 +1,274 @@
+[1mdiff --git a/.eslintrc.json b/.eslintrc.json[m
+[1mdeleted file mode 100644[m
+[1mindex bffb357..0000000[m
+[1m--- a/.eslintrc.json[m
+[1m+++ /dev/null[m
+[36m@@ -1,3 +0,0 @@[m
+[31m-{[m
+[31m-  "extends": "next/core-web-vitals"[m
+[31m-}[m
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mdeleted file mode 100644[m
+[1mindex fd3dbb5..0000000[m
+[1m--- a/.gitignore[m
+[1m+++ /dev/null[m
+[36m@@ -1,36 +0,0 @@[m
+[31m-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.[m
+[31m-[m
+[31m-# dependencies[m
+[31m-/node_modules[m
+[31m-/.pnp[m
+[31m-.pnp.js[m
+[31m-.yarn/install-state.gz[m
+[31m-[m
+[31m-# testing[m
+[31m-/coverage[m
+[31m-[m
+[31m-# next.js[m
+[31m-/.next/[m
+[31m-/out/[m
+[31m-[m
+[31m-# production[m
+[31m-/build[m
+[31m-[m
+[31m-# misc[m
+[31m-.DS_Store[m
+[31m-*.pem[m
+[31m-[m
+[31m-# debug[m
+[31m-npm-debug.log*[m
+[31m-yarn-debug.log*[m
+[31m-yarn-error.log*[m
+[31m-[m
+[31m-# local env files[m
+[31m-.env*.local[m
+[31m-[m
+[31m-# vercel[m
+[31m-.vercel[m
+[31m-[m
+[31m-# typescript[m
+[31m-*.tsbuildinfo[m
+[31m-next-env.d.ts[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex b41d5b2..bc3ec7a 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,41 +1 @@[m
+[31m-[m
+[31m-```[m
+[31m-taxiya[m
+[31m-├─ .eslintrc.json[m
+[31m-├─ .gitignore[m
+[31m-├─ app[m
+[31m-│  ├─ favicon.ico[m
+[31m-│  ├─ globals.css[m
+[31m-│  ├─ layout.tsx[m
+[31m-│  ├─ page.tsx[m
+[31m-│  ├─ sign-in[m
+[31m-│  │  └─ [[...sign-in]][m
+[31m-│  │     └─ page.tsx[m
+[31m-│  └─ sign-up[m
+[31m-│     └─ [[...sign-up]][m
+[31m-│        └─ page.tsx[m
+[31m-├─ components[m
+[31m-│  ├─ Booking[m
+[31m-│  │  ├─ AutoCompleteAddress.tsx[m
+[31m-│  │  └─ Booking.tsx[m
+[31m-│  ├─ Map[m
+[31m-│  │  └─ Map.tsx[m
+[31m-│  ├─ NavBar.tsx[m
+[31m-│  └─ ui[m
+[31m-│     ├─ input.tsx[m
+[31m-│     └─ label.tsx[m
+[31m-├─ components.json[m
+[31m-├─ lib[m
+[31m-│  └─ utils.ts[m
+[31m-├─ middleware.ts[m
+[31m-├─ next.config.js[m
+[31m-├─ package-lock.json[m
+[31m-├─ package.json[m
+[31m-├─ postcss.config.js[m
+[31m-├─ public[m
+[31m-│  └─ logo.png[m
+[31m-├─ README.md[m
+[31m-├─ tailwind.config.ts[m
+[31m-└─ tsconfig.json[m
+[31m-[m
+[31m-```[m
+\ No newline at end of file[m
+[32m+[m[32m# TaxiYA[m
+\ No newline at end of file[m
+[1mdiff --git a/app/api/search-address/route.tsx b/app/api/search-address/route.tsx[m
+[1mdeleted file mode 100644[m
+[1mindex 99a30b5..0000000[m
+[1m--- a/app/api/search-address/route.tsx[m
+[1m+++ /dev/null[m
+[36m@@ -1,30 +0,0 @@[m
+[31m-import { NextResponse } from "next/server";[m
+[31m-[m
+[31m-const BASE_URL = "https://api.mapbox.com/search/searchbox/v1/suggest";[m
+[31m-[m
+[31m-export async function GET(request: any) {[m
+[31m-  const { searchParams } = new URL(request.url);[m
+[31m-[m
+[31m-  const searchText = searchParams.get("q");[m
+[31m-[m
+[31m-  // Check if MAPBOX_ACCESS_TOKEN is defined[m
+[31m-  if (!process.env.MAPBOX_ACCESS_TOKEN) {[m
+[31m-    [m
+[31m-    // Handle the case where the token is undefined (throw an error or handle it accordingly)[m
+[31m-    throw new Error("MAPBOX_ACCESS_TOKEN is not defined");[m
+[31m-  }[m
+[31m-[m
+[31m-  const res = await fetch([m
+[31m-    `${BASE_URL}?q=${searchText}&language=en&limit=6&country=US&session_token=[GENERATED-UUID]`,[m
+[31m-    {[m
+[31m-      headers: {[m
+[31m-        "Content-Type": "application/json",[m
+[31m-      },[m
+[31m-    }[m
+[31m-  );[m
+[31m-  [m
+[31m-[m
+[31m-  const searchResult = await res.json();[m
+[31m-  console.log('Search Result:', searchResult);[m
+[31m-  return NextResponse.json({ searchResult });[m
+[31m-}[m
+[1mdiff --git a/app/favicon.ico b/app/favicon.ico[m
+[1mdeleted file mode 100644[m
+[1mindex 718d6fe..0000000[m
+Binary files a/app/favicon.ico and /dev/null differ
+[1mdiff --git a/app/globals.css b/app/globals.css[m
+[1mdeleted file mode 100644[m
+[1mindex 6a75725..0000000[m
+[1m--- a/app/globals.css[m
+[1m+++ /dev/null[m
+[36m@@ -1,76 +0,0 @@[m
+[31m-@tailwind base;[m
+[31m-@tailwind components;[m
+[31m-@tailwind utilities;[m
+[31m- [m
+[31m-@layer base {[m
+[31m-  :root {[m
+[31m-    --background: 0 0% 100%;[m
+[31m-    --foreground: 222.2 84% 4.9%;[m
+[31m-[m
+[31m-    --card: 0 0% 100%;[m
+[31m-    --card-foreground: 222.2 84% 4.9%;[m
+[31m- [m
+[31m-    --popover: 0 0% 100%;[m
+[31m-    --popover-foreground: 222.2 84% 4.9%;[m
+[31m- [m
+[31m-    --primary: 222.2 47.4% 11.2%;[m
+[31m-    --primary-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --secondary: 210 40% 96.1%;[m
+[31m-    --secondary-foreground: 222.2 47.4% 11.2%;[m
+[31m- [m
+[31m-    --muted: 210 40% 96.1%;[m
+[31m-    --muted-foreground: 215.4 16.3% 46.9%;[m
+[31m- [m
+[31m-    --accent: 210 40% 96.1%;[m
+[31m-    --accent-foreground: 222.2 47.4% 11.2%;[m
+[31m- [m
+[31m-    --destructive: 0 84.2% 60.2%;[m
+[31m-    --destructive-foreground: 210 40% 98%;[m
+[31m-[m
+[31m-    --border: 214.3 31.8% 91.4%;[m
+[31m-    --input: 214.3 31.8% 91.4%;[m
+[31m-    --ring: 222.2 84% 4.9%;[m
+[31m- [m
+[31m-    --radius: 0.5rem;[m
+[31m-  }[m
+[31m- [m
+[31m-  .dark {[m
+[31m-    --background: 222.2 84% 4.9%;[m
+[31m-    --foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --card: 222.2 84% 4.9%;[m
+[31m-    --card-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --popover: 222.2 84% 4.9%;[m
+[31m-    --popover-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --primary: 210 40% 98%;[m
+[31m-    --primary-foreground: 222.2 47.4% 11.2%;[m
+[31m- [m
+[31m-    --secondary: 217.2 32.6% 17.5%;[m
+[31m-    --secondary-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --muted: 217.2 32.6% 17.5%;[m
+[31m-    --muted-foreground: 215 20.2% 65.1%;[m
+[31m- [m
+[31m-    --accent: 217.2 32.6% 17.5%;[m
+[31m-    --accent-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --destructive: 0 62.8% 30.6%;[m
+[31m-    --destructive-foreground: 210 40% 98%;[m
+[31m- [m
+[31m-    --border: 217.2 32.6% 17.5%;[m
+[31m-    --input: 217.2 32.6% 17.5%;[m
+[31m-    --ring: 212.7 26.8% 83.9%;[m
+[31m-  }[m
+[31m-}[m
+[31m- [m
+[31m-@layer base {[m
+[31m-  * {[m
+[31m-    @apply border-border;[m
+[31m-  }[m
+[31m-  body {[m
+[31m-    @apply bg-background text-foreground;[m
+[31m-  }[m
+[31m-}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/layout.tsx b/app/layout.tsx[m
+[1mdeleted file mode 100644[m
+[1mindex c545893..0000000[m
+[1m--- a/app/layout.tsx[m
+[1m+++ /dev/null[m
+[36m@@ -1,29 +0,0 @@[m
+[31m-import type { Metadata } from 'next'[m
+[31m-import { Inter, Outfit } from 'next/font/google'[m
+[31m-import './globals.css'[m
+[31m-import { ClerkProvider } from '@clerk/nextjs'[m
+[31m-import NavBar from '@/components/NavBar'[m
+[31m-[m
+[31m-const outfit = Outfit({ subsets: ['latin'] })[m
+[31m-[m
+[31m-export const metadata: Metadata = {[m
+[31m-  title: 'Create Next App',[m
+[31m-  description: 'Generated by create next app',[m
+[31m-}[m
+[31m-[m
+[31m-export default function RootLayout({[m
+[31m-  children,[m
+[31m-}: {[m
+[31m-  children: React.ReactNode[m
+[31m-}) {[m
+[31m-  return ([m
+[31m-    <ClerkProvider>[m
+[31m-      <html lang="en">[m
+[31m-        <body className={outfit.className}>[m
+[31m-          <NavBar />[m
+[31m-          {children}[m
+[31m-          </body>[m
+[31m-      </html>[m
+[31m-    </ClerkProvider>[m
+[31m-  )[m
+[31m-}[m
+[1mdiff --git a/app/page.tsx b/app/page.tsx[m
+[1mdeleted file mode 100644[m
+[1mindex 9270e6c..0000000[m
+[1m--- a/app/page.tsx[m
+[1m+++ /dev/null[m
+[36m@@ -1,18 +0,0 @@[m
+[31m-import Booking from "@/components/Booking/Booking";[m
+[31m-import Map from "@/components/Map/Map";[m
+[31m-[m
+[31m-[m
+[31m-export default function Home() {[m
+[31m-  return ([m
+[31m-    <div>[m
+[31m-      <div className="grid grid-cols-1 md:grid-cols-3">[m
+[31m-        <div>[m
+[31m-    
